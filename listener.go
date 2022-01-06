@@ -169,7 +169,8 @@ func (l *listener) WrapExpiration(days int) net.Listener {
 		}
 
 		for {
-			wait := 6 * time.Hour
+			logrus.Infoln("time to check for cert expiration")
+			wait := 10 * time.Second
 			if err := l.checkExpiration(days); err != nil {
 				logrus.Errorf("failed to check and renew dynamic cert: %v", err)
 				// Don't go into short retry loop if we're using a static (user-provided) cert.
