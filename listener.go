@@ -244,7 +244,10 @@ func (l *listener) checkExpiration(days int) error {
 		return err
 	}
 
+	logrus.Infoln("checking if the cert is about to expire")
+
 	if cert.IsCertExpired(certParsed, days) {
+		logrus.Infoln("the cert has expired")
 		secret, err := l.factory.Renew(secret)
 		if err != nil {
 			return err
